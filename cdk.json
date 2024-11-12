@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/localstack-go.ts",
+  "app": "npx ts-node --prefer-ts-exts localstack-go.ts",
   "watch": {
     "include": [
       "**"

@@ -8,7 +8,11 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "bootstrap:local":"cdklocal bootstrap",
+    "deploy:local":"cdklocal deploy -v",
+    "ckdlocal:cache-clear":"cdklocal context --clear",
+    "ckdlocal:synth":"cdklocal synth"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -20,8 +24,15 @@
     "typescript": "~5.6.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-lambda-go-alpha": "^2.165.0-alpha.0",
+    "@aws-cdk/aws-sam": "^1.204.0",
     "aws-cdk-lib": "2.164.1",
     "constructs": "^10.0.0",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "aws-cdk-local": "^2.18.0"
+  },
+  "volta": {
+    "node": "20.16.0",
+    "yarn": "1.22.22"
   }
 }
