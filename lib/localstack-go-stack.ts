@@ -15,13 +15,6 @@ export class LocalstackGoStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'LocalstackGoQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-
     const iamRoleForLambda = new cdk.aws_iam.Role(this, "iamRoleForLambda", {
       roleName: 'localstack-go-lambda-role',
       assumedBy: new cdk.aws_iam.ServicePrincipal("lambda.amazonaws.com")
