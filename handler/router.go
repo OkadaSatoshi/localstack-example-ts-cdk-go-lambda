@@ -1,17 +1,17 @@
 package handler
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"time"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 type RouterInterface interface {
 	Route() *gin.Engine
 }
 
-type Router struct {}
+type Router struct{}
 
 func NewRouter() RouterInterface {
 	return &Router{}
@@ -43,8 +43,6 @@ func (router *Router) Route() *gin.Engine {
 			"Content-Length",
 			"Accept-Encoding",
 			"Authorization",
-			"X-User-Jwt-Session",
-			"X-Jwt-Channel-Session",
 		},
 		// preflightリクエストの結果をキャッシュする時間
 		MaxAge: 24 * time.Hour,
