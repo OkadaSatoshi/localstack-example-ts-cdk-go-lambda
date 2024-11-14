@@ -31,6 +31,7 @@ export class LocalstackGoStack extends cdk.Stack {
         cgoEnabled: false,
         command: [
           'bash', '-c',[
+          "ls -la",
           "export GOCACHE=/tmp/go-cache",
           "export GOPATH=/tmp/go-path",
           "ls -la",
@@ -55,8 +56,8 @@ export class LocalstackGoStack extends cdk.Stack {
 
     api.root.addResource('{proxy+}')
     // NOTE: localstackがAnyをサポートしていないかも
-            // .addMethod('ANY', new apigateway.LambdaIntegration(handlerLambda))
-            .addMethod('GET', new apigateway.LambdaIntegration(handlerLambda))
+            .addMethod('ANY', new apigateway.LambdaIntegration(handlerLambda))
+            // .addMethod('GET', new apigateway.LambdaIntegration(handlerLambda))
 
     // const handlerLambda = new lambda.Function(this, 'HandlerLambda', {
     //   runtime: lambda.Runtime.PROVIDED_AL2,

@@ -51,6 +51,7 @@ func (router *Router) Route() *gin.Engine {
 	pingHandler := NewPingHandler()
 	{
 		r.GET("/ping", pingHandler.Ping())
+		r.POST("/ping", pingHandler.PostPing())
 	}
 	return r
 }
@@ -66,6 +67,14 @@ func (h *PingHandler) Ping() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
+		})
+	}
+}
+
+func (h *PingHandler) PostPing() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "postpong",
 		})
 	}
 }
