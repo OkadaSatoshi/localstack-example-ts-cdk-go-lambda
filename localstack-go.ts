@@ -1,10 +1,25 @@
 #!/home/linuxbrew/.linuxbrew/opt/node/bin/node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { LocalstackGoStack } from './lib/localstack-go-stack';
+import { LocalstackGoStack, LocalstackGoStackInput } from './lib/localstack-go-stack';
+import { VpcStack } from './lib/vpc-stack';
 
 const app = new cdk.App();
-new LocalstackGoStack(app, 'LocalstackGoStack0002', {
+
+const vpcStack = new VpcStack(app, 'PreVPCStackSuf', {
+  env: {
+    region: 'ap-northeast-1'
+  }
+})
+const vpcStackOutputs: LocalstackGoStackInput = {
+  vpc: vpcStack.vpc,
+  selectedSubnets: vpcStack.subnets,
+  securityGroup: vpcStack.securityGroup
+}
+new LocalstackGoStack(app, 'PreLocalstackGoStack0002Suf', {
+  env: {
+    region: 'ap-northeast-1'
+  }
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -18,4 +33,4 @@ new LocalstackGoStack(app, 'LocalstackGoStack0002', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+}, vpcStackOutputs);

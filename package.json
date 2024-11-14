@@ -10,7 +10,7 @@
     "test": "jest",
     "cdk": "cdk",
     "bootstrap:local":"cdklocal bootstrap",
-    "deploy:local":"cdklocal deploy -v",
+    "deploy:local":"cdklocal deploy Pre*",
     "ckdlocal:cache-clear":"cdklocal context --clear",
     "ckdlocal:synth":"cdklocal synth"
   },

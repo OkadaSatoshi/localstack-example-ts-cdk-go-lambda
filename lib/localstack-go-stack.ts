@@ -11,9 +11,27 @@ import * as logs from 'aws-cdk-lib/aws-logs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 import path = require('path');
 
+export interface LocalstackGoStackInput {
+  vpc: ec2.Vpc
+  selectedSubnets: ec2.SelectedSubnets
+  securityGroup: ec2.SecurityGroup
+}
+
 export class LocalstackGoStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps, input?: LocalstackGoStackInput) {
     super(scope, id, props);
+
+    let vpc: ec2.Vpc | null = null
+    let selectedSubnets: ec2.SelectedSubnets | null = null
+    let securityGroup: ec2.SecurityGroup | null = null
+    if (input !== undefined) {
+      // ローカル環境
+      vpc = input?.vpc
+      selectedSubnets = input?.selectedSubnets
+      securityGroup = input?.securityGroup
+    } 
+    // else if
+    // TODO: クラウド環境
 
     const iamRoleForLambda = new cdk.aws_iam.Role(this, "iamRoleForLambda", {
       roleName: 'localstack-go-lambda-role',
@@ -26,6 +44,8 @@ export class LocalstackGoStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(10),
       memorySize: 128,
       role: iamRoleForLambda,
+      // TODO: VPCなどの設定見直す
+      vpc: vpc!,
       bundling: {
         dockerImage: lambda.Runtime.PROVIDED_AL2.bundlingImage,
         cgoEnabled: false,
